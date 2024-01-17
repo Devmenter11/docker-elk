@@ -43,12 +43,20 @@ services:
       - elasticsearch
 
   elasticsearch:
+    # user: root
     build:
       context: elasticsearch/
       args:
         ELASTIC_VERSION: ${ELASTIC_VERSION}
+    # command: sudo chmod 775 /usr/share/elasticsearch/bin/elasticsearch-keystore  
+    # entrypoint: 
+    #   /bin/bash -c "chmod 775 /usr/share/elasticsearch/bin/elasticsearch-keystore && /usr/local/bin/docker-entrypoint.sh"
     volumes:
+      - /etc/localtime:/etc/localtime
+      - /ect/timezone:/ect/timezone
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,Z
+      # - ./elasticsearch/bin/elasticsearch-keystore:/usr/share/elasticsearch/bin/elasticsearch-keystore:ro,Z
+
       - elasticsearch:/usr/share/elasticsearch/data:Z
     ports:
       - 9200:9200
@@ -63,6 +71,8 @@ services:
       # Use single node discovery in order to disable production mode and avoid bootstrap checks.
       # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
       discovery.type: single-node
+      # xpack.security.authc.realms.oidc.oidc1.rp.client_secret: Awn2h2GGcYnPXcXxt2Hm4lYSEtAa
+
     networks:
       - elk
     restart: unless-stopped
@@ -73,8 +83,11 @@ services:
       args:
         ELASTIC_VERSION: ${ELASTIC_VERSION}
     volumes:
+      - /etc/localtime:/etc/localtime
+      - /ect/timezone:/ect/timezone
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro,Z
+
     ports:
       - 5044:5044
       - 50000:50000/tcp
@@ -95,6 +108,8 @@ services:
       args:
         ELASTIC_VERSION: ${ELASTIC_VERSION}
     volumes:
+      - /etc/localtime:/etc/localtime
+      - /ect/timezone:/ect/timezone
       - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z
     ports:
       - 5601:5601

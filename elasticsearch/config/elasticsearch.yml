@@ -4,9 +4,88 @@
 #
 cluster.name: docker-cluster
 network.host: 0.0.0.0
-
+# timezone: Asia/Ho_Chi_Minh
 ## X-Pack settings
 ## see https://www.elastic.co/guide/en/elasticsearch/reference/current/security-settings.html
 #
 xpack.license.self_generated.type: trial
 xpack.security.enabled: true
+xpack.security.authc.token.enabled: true
+xpack.security.authc.realms.oidc.oidc1:
+  order: 2
+  rp.client_id: "wmLsFz157tGgrdWXEoZHYgbT8sEa"
+  rp.response_type: code
+  rp.redirect_uri: "http://10.2.22.171:5601/api/security/oidc/callback"
+  op.issuer: "https://10.2.22.171:9443/oauth2/token"
+  op.authorization_endpoint: "https://10.2.22.171:9443/oauth2/authorize"
+  op.token_endpoint: "https://10.2.22.171:9443/oauth2/token"
+  op.jwkset_path: "https://10.2.22.171:9443/oauth2/jwks"
+  op.endsession_endpoint: "https://10.2.22.171:9443/oidc/logout"
+  rp.post_logout_redirect_uri: "http://10.2.22.171:5601/security/logged_out"
+  ssl.certificate_authorities: ["oidc/wso2carbon.cer"]
+  claims.principal: sub
+  claims.groups: groups
+  ssl.verification_mode: none
+  claims.name: name
+  claims.mail: email
+# xpack.security.authc.realms.oidc.oidc1:
+#   order: 2
+#   rp.client_id: "__f8yaTvkrd5ETMnpuCFD0fjyc4a"
+#   # rp.client_secret: "GTNNWfeEfId62NYhhNukc2BLfn0a"
+#   rp.response_type: code
+#   rp.redirect_uri: "http://10.2.22.171:5601/api/security/oidc/callback"
+#   op.issuer: "https://10.2.22.171:9444/oauth2/token"
+#   op.authorization_endpoint: "https://10.2.22.171:9444/oauth2/authorize"
+#   op.token_endpoint: "https://10.2.22.171:9444/oauth2/token"
+#   op.jwkset_path: "https://10.2.22.171:9444/oauth2/jwks"
+#   op.endsession_endpoint: "https://10.2.22.171:9444/oidc/logout"
+#   rp.post_logout_redirect_uri: "http://10.2.22.171:5601/security/logged_out"
+#   ssl.certificate_authorities: ["oidc/wso2carbon.cer"]
+#   claims.principal: sub
+#   claims.groups: groups
+#   ssl.verification_mode: none
+#   claims.name: name
+#   claims.mail: email
+
+#  Hiếu
+# xpack.security.authc.realms.oidc.oidc1:
+#   order: 2
+#   rp.client_id: "zq6myZWiZpPCm2iUemsblpbYmm8a"
+#   # rp.client_secret: "QllZofJFs1AOChbUseFqVSyQB1Ma"
+#   rp.response_type: code
+#   rp.redirect_uri: "http://10.2.22.171:5601/api/security/oidc/callback"
+#   op.issuer: "https://10.2.22.163:9448/oauth2/token"
+#   op.authorization_endpoint: "https://10.2.22.163:9448/oauth2/authorize"
+#   op.token_endpoint: "https://10.2.22.163:9448/oauth2/token"
+#   op.jwkset_path: "https://10.2.22.163:9448/oauth2/jwks"
+#   op.endsession_endpoint: "https://10.2.22.163:9448/oidc/logout"
+#   rp.post_logout_redirect_uri: "http://10.2.22.171:5601/security/logged_out"
+#   ssl.certificate_authorities: ["oidc/wso2carbon.cer"]
+#   claims.principal: sub
+#   claims.groups: groups
+#   ssl.verification_mode: none
+#   claims.name: name
+#   claims.mail: email
+
+# xpack.security.authc:
+#   anonymous:
+#     username: anonymous_user
+#     authz_exception: true
+
+# xpack.security.authc.realms.oidc.oidc1:
+#   order: 2
+#   rp.client_id: "FPzIz2gQmNbyM0tJBvnRkIFwz5wa"
+#   rp.response_type: code
+#   rp.redirect_uri: "http://10.2.22.171:5601/api/security/oidc/callback"
+#   op.issuer: "https://10.2.22.54:9443/oauth2/token"
+#   op.authorization_endpoint: "https://10.2.22.54:9443/oauth2/authorize"
+#   op.token_endpoint: "https://10.2.22.54:9443/oauth2/token"
+#   op.jwkset_path: "https://10.2.22.54:9443/oauth2/jwks"
+#   op.endsession_endpoint: "https://10.2.22.54:9443/oidc/logout"
+#   op.userinfo_endpoint: "https://10.2.22.54:9443/oauth2/userinfo"
+#   rp.post_logout_redirect_uri: "http://10.2.22.171:5601/security/logged_out"
+#   claims.principal: sub
+#   ssl.verification_mode: none
+#   claims.groups: groups
+#   claims.name: name
+#   claims.mail: email
